@@ -8,6 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.magdamiu.recyclerview_androidfundamentals.EmailAdapter;
+import com.magdamiu.recyclerview_androidfundamentals.ItemClickListener;
+import com.magdamiu.recyclerview_androidfundamentals.R;
+import com.magdamiu.recyclerview_androidfundamentals.RecyclerTouchListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
