@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RecyclerView-AndroidFundamentals</string>
+    <string name="long_click">"Long Click "</string>
+    <string name="single_click">Single Click</string>
 </resources>

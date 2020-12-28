@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,5 +55,23 @@ public class MainActivity extends AppCompatActivity {
 
         // adapter - checked
         setEmailsAdapter();
+
+        setClickListener();
+    }
+
+    private void setClickListener() {
+        recyclerViewEmails.addOnItemTouchListener(new RecyclerTouchListener(MainActivity.this, recyclerViewEmails, new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(MainActivity.this, getString(R.string.single_click) + position,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(MainActivity.this, getString(R.string.long_click) + position,
+                        Toast.LENGTH_LONG).show();
+            }
+        }));
     }
 }
