@@ -14,6 +14,7 @@ import java.util.List;
 // custom adapter = EmailAdapter defined based on our scenario
 // step 6 = Extend RecyclerView.Adapter in a separated class
 public class EmailAdapter extends RecyclerView.Adapter<EmailViewHolder> {
+
     private List<Email> emails;
     private Context context;
 
@@ -46,5 +47,13 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailViewHolder> {
     @Override
     public int getItemCount() {
         return emails.size();
+    }
+
+    public List<Email> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
     }
 }

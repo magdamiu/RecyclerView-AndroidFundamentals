@@ -1,6 +1,7 @@
 package com.magdamiu.recyclerview_androidfundamentals;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +19,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List emails;
+    private List<Email> emails;
+    private EmailAdapter emailAdapter;
     private RecyclerView recyclerViewEmails;
 
     @Override
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        emails = new ArrayList<>();
+        emailAdapter = new EmailAdapter(this, emails);
         recyclerViewEmails = findViewById(R.id.recyclerViewEmails);
         displayEmailsList();
     }
@@ -33,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     // RecyclerView implementation
     // get data source
     private void inbox() {
-        emails = new ArrayList<>();
         Email email = null;
         for (int i = 0; i < 25; i++) {
             email = new Email(0, "Magda " + i, "Hello Android " + i, "This is an intro about Android");
@@ -48,8 +51,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setEmailsAdapter() {
-        recyclerViewEmails.setAdapter(new EmailAdapter(this, emails));
+        recyclerViewEmails.setAdapter(emailAdapter);
     }
+
+    // NOT OK
+    void onNewEmailsArrivedNotRecommended(List<Email> newEmails) {
+        emailAdapter.setEmails(newEmails);
+        emailAdapter.notifyDataSetChanged();
+    }
+
+    // OK
+    void onNewDataArrivedFastRendering(List<Email> newEmails) {
+        List<Email> oldEmails = emailAdapter.getEmails();
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new EmailDiffCallback(oldEmails, newEmails));
+        emailAdapter.setEmails(newEmails);
+        result.dispatchUpdatesTo(emailAdapter);
+    }
+
 
     private void displayEmailsList() {
         // data source - checked
