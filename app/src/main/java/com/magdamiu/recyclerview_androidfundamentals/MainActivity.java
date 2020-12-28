@@ -2,6 +2,7 @@ package com.magdamiu.recyclerview_androidfundamentals;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +35,21 @@ public class MainActivity extends AppCompatActivity {
         displayEmailsList();
     }
 
-    // RecyclerView implementation
+    private void displayEmailsList() {
+        // data source - checked
+        inbox();
+
+        // layout manager - checked
+        setEmailsLayoutManager();
+
+        // adapter - checked
+        setEmailsAdapter();
+
+        setClickListener();
+
+        setItemDecorator();
+    }
+
     // get data source
     private void inbox() {
         Email email = null;
@@ -68,18 +83,10 @@ public class MainActivity extends AppCompatActivity {
         result.dispatchUpdatesTo(emailAdapter);
     }
 
-
-    private void displayEmailsList() {
-        // data source - checked
-        inbox();
-
-        // layout manager - checked
-        setEmailsLayoutManager();
-
-        // adapter - checked
-        setEmailsAdapter();
-
-        setClickListener();
+    private void setItemDecorator() {
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerViewEmails.addItemDecoration(itemDecoration);
     }
 
     private void setClickListener() {
