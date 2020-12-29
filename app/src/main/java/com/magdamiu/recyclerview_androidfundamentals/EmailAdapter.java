@@ -49,6 +49,18 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailViewHolder> {
         return emails.size();
     }
 
+    // Clean all elements of the recycler
+    public void clear() {
+        emails.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items
+    public void addAll(List<Email> list) {
+        emails.addAll(list);
+        notifyDataSetChanged();
+    }
+
     public List<Email> getEmails() {
         return emails;
     }
