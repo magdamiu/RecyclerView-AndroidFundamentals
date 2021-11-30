@@ -4,14 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String EMAIL_ID = "emailId";
 
-    private List emails;
+    private List<Email> emails;
     private RecyclerView recyclerViewEmails;
 
     @Override
@@ -53,5 +57,31 @@ public class MainActivity extends AppCompatActivity {
 
         // adapter - checked
         setEmailsAdapter();
+
+        // on item click and long click
+        setRecyclerViewListener();
     }
+
+    private void setRecyclerViewListener() {
+        recyclerViewEmails.addOnItemTouchListener(new RecyclerTouchListener(this,
+                recyclerViewEmails, new EmailsClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+                Toast.makeText(MainActivity.this, getString(R.string.single_click) + position,
+                        Toast.LENGTH_SHORT).show();
+
+                Email email = emails.get(position);
+                Intent intent = new Intent(MainActivity.this, EmailDetailsActivity.class);
+                intent.putExtra(EMAIL_ID, email.getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(MainActivity.this, getString(R.string.long_click) + position,
+                        Toast.LENGTH_LONG).show();
+            }
+        }));
+    }
+
 }
